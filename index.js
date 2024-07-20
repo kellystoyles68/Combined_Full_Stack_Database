@@ -4,9 +4,10 @@
 require(`dotenv`).config();
 const express = require("express");
 const methodOverride = require("method-override");
-const bodyParaser = require("body-parser");
+const bodyParser = require("body-parser");
 const expressLayouts = require("express-ejs-layouts");
-const booksRouter = require("/routes/books");
+//const router = express router;
+const booksRouter = require("./routes/books");
 
 //express initialization
 const app = express();
