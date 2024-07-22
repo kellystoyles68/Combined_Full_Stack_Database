@@ -4,11 +4,11 @@ body {
   padding: 0 20px;
   font-family: "Bradley Hand";
   max-width: 1200px;
-  background-color: #a5b3cc;
+  background-color: #87ceeb;
   color: 0007BFF;
 }
 a:hover {
-  color: grey;
+  color: white;
 }
 p,
 h1,
@@ -16,10 +16,11 @@ h2,
 h3,
 a,
 ul {
-  margin: 0;
-  padding: 0;
+  text-align: center;
+  margin: 10;
+  padding: 10;
   text-decoration: none;
-  color: #66bb6a;
+  color: #0c1dd5;
 }
 
 nav {
@@ -45,14 +46,14 @@ nav h1 {
 }
 nav p,
 nav a {
-  color: #777;
+  color: #212f3d;
   font-weight: 300;
 }
 footer {
   color: #007bff;
-
-  text-align: center;
-  margin: 80px auto 20px;
+  text-align: right;
+  margin: 20px auto 20px;
+  margin-top: 30%;
 }
 h2 {
   margin-bottom: 20px;

@@ -5,23 +5,19 @@ require(`dotenv`).config();
 const express = require("express");
 const methodOverride = require("method-override");
 const bodyParser = require("body-parser");
-const expressLayouts = require("express-ejs-layouts");
-//const router = express router;
 const booksRouter = require("./routes/books");
 
 //express initialization
 const app = express();
 //port configuration
-const PORT = process.env.PORT || 3000;
-
+const PORT = 3000;
 //set the views & layouts
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
-app.set("layout", "layouts/layout");
 
 //set up middleware
 app.use(express.urlencoded({ extended: false }));
-app.use(expressLayouts);
+app.use(express.json());
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -31,9 +27,16 @@ app.use(methodOverride("_method"));
 app.get("/", (req, res) => {
   res.render("index");
 });
+
+app.get("/about", (req, res) => {
+  res.render("about");
+});
+
+//app.get("/books", (req, res) => {
 app.use("/books", booksRouter);
+//});
 
 //check to see if the server is listening
 app.listen(PORT, () => {
-  console.log(`Server is running on port $(PORT)`);
+  console.log(`Server is running on port ${PORT}`);
 });

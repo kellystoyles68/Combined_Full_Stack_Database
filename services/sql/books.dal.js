@@ -11,12 +11,6 @@ async function getAllBooks() {
   }
 }
 
-//get a book by ID
-//async function getBookById(id) {
-// const result = await pool.query("SELECT * FROM books WHERE id = $1", [id]);
-// return result.rows[0];
-//}
-
 //add a new book
 async function addBook(book) {
   const { id, title, author, genre, year_published } = book;
@@ -46,10 +40,10 @@ async function deleteBook(id) {
 }
 
 //get the number of books
-async function getNumberOfBooks() {
-  const result = await pool.query("SELECT COUNT(*) FROM books");
-  return result.rows[0].count;
-}
+//async function getNumberOfBooks() {
+//  const result = await pool.query("SELECT COUNT(*) FROM books");
+//  return result.rows[0].count;
+//}
 
 //get all modules
 module.exports = {
@@ -57,6 +51,6 @@ module.exports = {
   addBook,
   updateAuthor,
   deleteBook,
-  getNumberOfBooks,
+  //getNumberOfBooks,
   // getBookById,
 };
