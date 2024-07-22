@@ -44,30 +44,30 @@ describe("GET /books", () => {
 test("should update a book field", async () => {
   const field = "title";
   const newValue = "Updated Title";
-  const id = 1;
+  const title = Book 1;
 
   const pool = new Pool();
   pool.query.mockResolvedValue({ rowCount: 1 });
 
-  await updateBookField(field, newValue, id);
+  await updateBookField(field, newValue, title);
 
   expect(pool.query).toHaveBeenCalledWith(
     `UPDATE books SET ${field} = $1 WHERE id = $2`,
-    [newValue, id]
+    [newValue, title]
   );
 });
 
 //Test3: i want to see if i can delete a book from the library
 
-describe("DELETE /books/:id", () => {
+describe("DELETE /books/:title", () => {
   it("should delete a book from the database", async () => {
     const pool = new Pool();
     pool.query.mockResolvedValue({ rowCount: 1 });
 
-    const res = await request(app).delete("/books/1");
+    const res = await request(app).delete("/books/Book 1");
 
     expect(res.statusCode).toEqual(200);
-    expect(pool.query).toHaveBeenCalledWith("DELETE FROM books WHERE id = $1", [
+    expect(pool.query).toHaveBeenCalledWith("DELETE FROM books WHERE title = $1", [
       1,
     ]);
   });

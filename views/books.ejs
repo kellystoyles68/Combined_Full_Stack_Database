@@ -7,15 +7,24 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <%-include ('partials/nav')%>
-    <h1>Books</h1>
-    <ul>
+    <%- include('partials/nav') %>
+    <h1>Florida Library Books</h1>
+    <ul class="book-list">
       <% books.forEach(book => { %>
       <li>
-        <a href="/books/<%=book.id%>"><%= book.title %> by <%+book.author %></a>
+        <a href="/books/<%= book.id %>"><%= book.title %></a> by
+        <a href="/books/<%= book.author %>"><%= book.author %></a>
       </li>
-      <%})%>
+      <% }) %>
     </ul>
-    <%-include ('partials/footer')%>
+    <button onclick="window.location.href='/books/new'">Add New Book</button>
+
+    <button onclick="window.location.href='/books/Update' ">Update Book</button>
+
+    <button onclick="window.location.href='/books/delete/<%= books.title %>'">
+      Delete Book
+    </button>
+
+    <%- include('partials/footer') %>
   </body>
 </html>

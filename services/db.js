@@ -12,15 +12,22 @@ const { Pool } = require("pg");
 //const pool = new Pool({
 //  connectionString: connectionString,
 //});
+
+//** I am hardcoding my database becuase for some reason (which i can't figure out)
+//Node.js codes my host as "base".
+//this is the only solution i have as the above commented out code did console to the terminal that the connection was made
+
 const pool = new Pool({
-  user: "postgres", // Replace with your actual database username
-  host: "localhost", // Explicitly set the hostname to localhost
-  database: "MyLibraryFlorida", // Replace with your actual database name
-  password: "KeyinCollege", // Replace with your actual database password
-  port: 5433, // Replace with your actual database port if different
+  user: "postgres",
+  host: "localhost",
+  database: "MyLibraryFlorida",
+  password: "KeyinCollege",
+  port: 5433,
 });
+
 pool
   .connect()
   .then(() => console.log("Database connected successfully"))
   .catch((err) => console.error("Database connection error:", err));
+
 module.exports = pool;

@@ -11,18 +11,24 @@ a:hover {
   color: white;
 }
 p,
-h1,
 h2,
 h3,
-a,
-ul {
+a {
   text-align: center;
   margin: 10;
   padding: 10;
   text-decoration: none;
   color: #0c1dd5;
+  font-size: 20px;
 }
-
+h1 {
+  text-align: center;
+  margin: 10;
+  padding: 10;
+  text-decoration: none;
+  color: #0c1dd5;
+  font-size: 30px;
+}
 nav {
   display: flex;
   justify-content: space-between;
@@ -39,6 +45,7 @@ nav ul {
 }
 nav li {
   list-style-type: none;
+  text-decoration: none;
   margin-left: 20px;
 }
 nav h1 {
@@ -71,12 +78,33 @@ h3 {
   margin: 20px;
 }
 
-.form button {
-  margin-top: 20px;
-  background: #fff200;
-  color: white;
+button {
+  margin-top: 300px;
+  color: #fff200;
   padding: 6px;
   border: 0;
   font-size: 1.2em;
   cursor: pointer;
+  font-family: "Bradley Hand";
+  background-color: #007bff;
+}
+
+button:hover {
+  color: #ff0000;
+  background-color: #007bff;
+}
+
+ul.book-list {
+  list-style-type: none;
+  padding-right: 10px;
+  margin: 0;
+  text-align: center;
+}
+
+ul.book-list a {
+  color: #0c1dd5;
+  text-decoration: none;
+}
+ul.book-list li {
+  padding: 5px 0;
 }

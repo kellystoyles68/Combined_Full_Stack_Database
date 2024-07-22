@@ -35,13 +35,50 @@ app.get("/about", (req, res) => {
   res.render("about");
 });
 
-//app.get("/books", booksRouter);
+//Route to get a list of books
 app.get("/books", async (req, res) => {
   try {
     const books = await getAllBooks();
     res.render("books", { books });
   } catch (error) {
     console.error("Error fetching books:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+app.get("/books/new", (req, res) => {
+  res.render("create");
+});
+// Route to handle the form submission for adding a new book
+app.post("/books", async (req, res) => {
+  try {
+    await addBook(req.body);
+    res.redirect("/books");
+  } catch (error) {
+    console.error("Error adding book:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+// Route for  updating a book
+app.put("/books/:title", async (req, res) => {
+  try {
+    const { field, newValue } = req.body;
+    await updateBookField(field, newValue, req.params.title);
+    res.redirect("/books");
+  } catch (error) {
+    console.error("Error updating book:", error);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
+// Route for deleting a book
+app.delete("/books/:title", async (req, res) => {
+  try {
+    await deleteBook(req.params.title);
+    res.redirect("/books");
+  } catch (error) {
+    console.error("Error deleting book:", error);
     res.status(500).send("Internal Server Error");
   }
 });
