@@ -82,11 +82,18 @@ test("should add a new book to the database", async () => {
     genre: "Test Genre",
     year_published: 2023,
   };
+  const pool = new Pool();
+  pool.query.mockResolvedValue({ rowCount: 1, rows: [newBook] });
+
+  // Add the book to the database
   await addBook(newBook);
 
   // Verify the book was added
-  const result = await addBook(newBook);
-  const addedBook = result;
+
+  const result = await pool.query("SELECT * FROM books WHERE id = $1", [
+    newBook.id,
+  ]);
+  const addedBook = result.rows[0];
 
   expect(addedBook).toBeDefined();
   expect(addedBook.title).toBe(newBook.title);

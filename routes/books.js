@@ -2,16 +2,17 @@
 const express = require("express");
 const router = express.Router();
 const pool = require("../services/db");
+const { deleteBook } = require("../services/sql/books.dal.js");
+const { getAllBooks } = require("../services/sql/books.dal.js");
 
 //Get all Books
 router.get("/", async (req, res) => {
   try {
-    const result = await pool.query(`SELECT * FROM books`);
-    res.render("books", { books: result.rows });
-  } catch (err) {
-    console.log("Error getting books");
-    console.error(`Error retreiving books`);
-    res.status(500).send("Server Error");
+    const books = await getAllBooks();
+    res.status(200).json(books);
+  } catch (error) {
+    console.error("Error getting books", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
@@ -62,14 +63,17 @@ router.put("/", async (req, res) => {
 });
 
 //Delete a book
-router.delete("/id/delete", async (req, res) => {
-  const bookId = req.params.id;
+router.delete("/id", async (req, res) => {
+  const { id } = req.params;
   try {
-    await pool.query(`DELETE FROM books WHERE id = $1`, [bookId]);
-    res.redirect("/books");
+    const success = await deleteBook(id);
+    if (success) {
+      res.status(200).send({ message: " Book was deleted." });
+    } else {
+      res.status(404).send({ message: "Book not found" });
+    }
   } catch (error) {
-    console.log("Error deleting the book");
-    res.status(500).send("Error deleting a book");
+    res.status(500).send({ message: "Internal Server Error" });
   }
 });
 
