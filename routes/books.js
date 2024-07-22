@@ -2,7 +2,6 @@
 const express = require("express");
 const router = express.Router();
 const pool = require("../services/db");
-const pool = require("../services/pool");
 
 //Get all Books
 router.get("/", async (req, res) => {

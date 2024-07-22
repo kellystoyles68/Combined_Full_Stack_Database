@@ -1,8 +1,7 @@
 const request = require("supertest");
 const express = require("express");
 const { Pool } = require("pg");
-const indexRouter = require("../routes/index");
-const booksRouter = require("../routes/books");
+const booksRouter = require("../routes/books.js");
 const { updateAuthor } = require("../services/sql/books.dal.js");
 const { addBook } = require("../services/sql/books.dal.js");
 
@@ -18,7 +17,7 @@ jest.mock("pg", () => {
 
 const app = express();
 app.use(express.json());
-app.use("/", indexRouter);
+//app.use("/", indexRouter);
 app.use("/books", booksRouter);
 
 //test1 - i want to see if i can get a list of all my books in the library
@@ -83,13 +82,11 @@ test("should add a new book to the database", async () => {
     genre: "Test Genre",
     year_published: 2023,
   };
-
-  // Call the addBook function
   await addBook(newBook);
 
   // Verify the book was added
-  const result = await getBook();
-  const addedBook = result.find((book) => book.id === newBook.id);
+  const result = await getBookById(newBook_id);
+  const addedBook = result;
 
   expect(addedBook).toBeDefined();
   expect(addedBook.title).toBe(newBook.title);
