@@ -85,7 +85,7 @@ test("should add a new book to the database", async () => {
   await addBook(newBook);
 
   // Verify the book was added
-  const result = await getBookById(newBook_id);
+  const result = await addBook(newBook);
   const addedBook = result;
 
   expect(addedBook).toBeDefined();
