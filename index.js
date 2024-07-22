@@ -32,8 +32,10 @@ app.get("/about", (req, res) => {
   res.render("about");
 });
 
-//app.get("/books", (req, res) => {
-app.use("/books", booksRouter);
+app.get("/books", (req, res) => {
+  res.render("books");
+});
+//app.use("/books", booksRouter);
 //});
 
 //check to see if the server is listening
