@@ -1,9 +1,10 @@
-// test1 - i want to test if i can lists all the book in my library
-// Mock the database connection
 const request = require("supertest");
 const express = require("express");
 const { Pool } = require("pg");
 const indexRouter = require("../routes/index");
+const booksRouter = require("../routes/books");
+const { updateAuthor } = require("../services/sql/books.dal.js");
+const { addBook } = require("../services/sql/books.dal.js");
 
 // Mock the database connection
 jest.mock("pg", () => {
@@ -18,7 +19,9 @@ jest.mock("pg", () => {
 const app = express();
 app.use(express.json());
 app.use("/", indexRouter);
+app.use("/books", booksRouter);
 
+//test1 - i want to see if i can get a list of all my books in the library
 describe("GET /books", () => {
   it("should list all books", async () => {
     const pool = new Pool();
@@ -39,9 +42,6 @@ describe("GET /books", () => {
 });
 
 // test2 - checks to see if author's name can be updates
-// Import necessary modules
-const { updateAuthor } = require("../services/sql/books.dal.js");
-
 test("should update an author's name", async () => {
   const oldName = "Old Author";
   const newName = "New Author";
@@ -58,26 +58,6 @@ test("should update an author's name", async () => {
 });
 
 //Test3: i want to see if i can delete a book from the library
-// Import necessary modules
-const request = require("supertest");
-const express = require("express");
-const { Pool } = require("pg");
-const booksRouter = require("../routes/books");
-
-// Mock the database connection
-jest.mock("pg", () => {
-  const mPool = {
-    connect: jest.fn(),
-    query: jest.fn(),
-    on: jest.fn(),
-  };
-  return { Pool: jest.fn(() => mPool) };
-});
-
-// Initialize the Express app and use the books router
-const app = express();
-app.use(express.json());
-app.use("/books", booksRouter);
 
 describe("DELETE /books/:id", () => {
   it("should delete a book from the database", async () => {
@@ -94,30 +74,18 @@ describe("DELETE /books/:id", () => {
 });
 
 //test4 - i want to see if the page will allow me to add a new book to the database
-// Mock the database connection
-const { Pool } = require("pg");
-const { createBook, getBook } = require("../services/sql/books.dal.js");
-
-// Mock database connection
-const pool = new Pool({
-  user: "postgres",
-  password: "password",
-  host: "localhost",
-  port: 5432,
-  database: "My_Florida_Library",
-});
 
 test("should add a new book to the database", async () => {
   const newBook = {
-    id: "1234567890123",
+    id: 1234567890123,
     title: "Test Book",
     author: "Test Author",
     genre: "Test Genre",
     year_published: 2023,
   };
 
-  // Call the createBook function
-  await createBook(newBook);
+  // Call the addBook function
+  await addBook(newBook);
 
   // Verify the book was added
   const result = await getBook();

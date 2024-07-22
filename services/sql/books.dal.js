@@ -13,10 +13,11 @@ async function getBookById(id) {
 }
 
 //add a new book
-async function addBook(id, title, author, genre, year) {
+async function addBook(book) {
+  const { id, title, author, genre, year_published } = book;
   await pool.query(
-    "INSERT INTO books (id, title, author, genre, year) VALUES ($1, $2, $3, $4, $5)",
-    [id, title, author, genre, year]
+    "INSERT INTO books (id, title, author, genre, year_published) VALUES ($1, $2, $3, $4, $5)",
+    [id, title, author, genre, year_published]
   );
 }
 
@@ -46,4 +47,5 @@ modules.exports = {
   updateAuthor,
   deleteBook,
   getNumberOfBooks,
+  getBookById,
 };
