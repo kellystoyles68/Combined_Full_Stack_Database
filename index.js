@@ -71,7 +71,7 @@ app.post("/books", async (req, res) => {
 });
 
 // Route for  updating a book
-app.put("/books/:title", async (req, res) => {
+app.put("/books/title", async (req, res) => {
   try {
     const book = await getBookByTitle(req.params.title);
     if (book) {
@@ -86,7 +86,7 @@ app.put("/books/:title", async (req, res) => {
 });
 
 // Route for deleting a book
-app.delete("/books/:title", async (req, res) => {
+app.delete("/books/title", async (req, res) => {
   try {
     await deleteBook(req.params.title);
     res.redirect("/books");
