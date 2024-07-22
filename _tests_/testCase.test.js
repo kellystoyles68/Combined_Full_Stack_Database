@@ -2,7 +2,7 @@ const request = require("supertest");
 const express = require("express");
 const { Pool } = require("pg");
 const booksRouter = require("../routes/books.js");
-const { updateAuthor } = require("../services/sql/books.dal.js");
+const { updateBookField } = require("../services/sql/books.dal.js");
 const { addBook } = require("../services/sql/books.dal.js");
 
 // Mock the database connection
@@ -40,19 +40,20 @@ describe("GET /books", () => {
   });
 });
 
-// test2 - checks to see if author's name can be updates
-test("should update an author's name", async () => {
-  const oldName = "Old Author";
-  const newName = "New Author";
+// test2 - checks to see if ayou can updatee any book field
+test("should update a book field", async () => {
+  const field = "title";
+  const newValue = "Updated Title";
+  const id = 1;
 
   const pool = new Pool();
   pool.query.mockResolvedValue({ rowCount: 1 });
 
-  await updateAuthor(oldName, newName);
+  await updateBookField(field, newValue, id);
 
   expect(pool.query).toHaveBeenCalledWith(
-    "UPDATE books SET author = $1 WHERE author = $2",
-    [newName, oldName]
+    `UPDATE books SET ${field} = $1 WHERE id = $2`,
+    [newValue, id]
   );
 });
 

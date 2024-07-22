@@ -20,12 +20,14 @@ async function addBook(book) {
   );
 }
 
-//update the author's name
-async function updateAuthor(oldName, newName) {
-  await pool.query("UPDATE books SET author = $1 WHERE author = $2", [
-    newName,
-    oldName,
-  ]);
+//update a book field
+async function updateBookField(field, newValue, id) {
+  const allowedFields = ["title", "author", "genre", "year_published"];
+  if (!allowedFields.includes(field)) {
+    throw new Error("Invalid field name");
+  }
+  const query = `UPDATE books SET ${field} = $1 WHERE id = $2`;
+  await pool.query(query, [newValue, id]);
 }
 
 //delete a book
@@ -39,18 +41,10 @@ async function deleteBook(id) {
   }
 }
 
-//get the number of books
-//async function getNumberOfBooks() {
-//  const result = await pool.query("SELECT COUNT(*) FROM books");
-//  return result.rows[0].count;
-//}
-
 //get all modules
 module.exports = {
   getAllBooks,
   addBook,
-  updateAuthor,
+  updateBookField,
   deleteBook,
-  //getNumberOfBooks,
-  // getBookById,
 };

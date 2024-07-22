@@ -4,6 +4,8 @@ const router = express.Router();
 const pool = require("../services/db");
 const { deleteBook } = require("../services/sql/books.dal.js");
 const { getAllBooks } = require("../services/sql/books.dal.js");
+const { updateAuthor } = require("../services/sql/books.dal.js");
+const { addBook } = require("../services/sql/books.dal.js");
 
 //Get all Books
 router.get("/", async (req, res) => {
