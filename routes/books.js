@@ -70,7 +70,7 @@ router.put("/", async (req, res) => {
 router.delete("/id", async (req, res) => {
   const { title } = req.params;
   try {
-    const success = await deleteBook(id);
+    const success = await deleteBook(title);
     if (success) {
       res.status(200).send({ message: " Book was deleted." });
     } else {

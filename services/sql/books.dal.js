@@ -38,7 +38,9 @@ async function updateBookField(field, newValue, title) {
 //delete a book
 async function deleteBook(title) {
   try {
-    const result = await pool.query("DELETE FROM books WHERE id = $1", [title]);
+    const result = await pool.query("DELETE FROM books WHERE title = $1", [
+      title,
+    ]);
     return result.rowCount > 0;
   } catch (error) {
     console.error("Error deleting the book:", error);
