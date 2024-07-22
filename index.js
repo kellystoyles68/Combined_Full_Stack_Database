@@ -1,16 +1,19 @@
 //this is the initial aetup required for the full stack/database QAP
 
 //initialize all our modules that were installed
-require(`dotenv`).config();
+require("dotenv").config();
 const express = require("express");
 const methodOverride = require("method-override");
 const bodyParser = require("body-parser");
 const booksRouter = require("./routes/books");
+const { getAllBooks } = require("./services/sql/books.dal.js");
+
+//port configuration
+const PORT = 3000;
 
 //express initialization
 const app = express();
-//port configuration
-const PORT = 3000;
+
 //set the views & layouts
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
@@ -32,11 +35,16 @@ app.get("/about", (req, res) => {
   res.render("about");
 });
 
-app.get("/books", (req, res) => {
-  res.render("books");
+//app.get("/books", booksRouter);
+app.get("/books", async (req, res) => {
+  try {
+    const books = await getAllBooks();
+    res.render("books", { books });
+  } catch (error) {
+    console.error("Error fetching books:", error);
+    res.status(500).send("Internal Server Error");
+  }
 });
-//app.use("/books", booksRouter);
-//});
 
 //check to see if the server is listening
 app.listen(PORT, () => {

@@ -22,7 +22,7 @@ router.get("/", async (req, res) => {
 router.get("/:Id", async (req, res) => {
   let bookId = req.params.Id;
   try {
-    const result = await pool.query(`SELECT * FROM books WHERE ISBN = $1`, [
+    const result = await pool.query(`SELECT * FROM books WHERE id = $1`, [
       req.params.Id,
     ]);
     if (result.rows.length > 0) {
@@ -37,7 +37,7 @@ router.get("/:Id", async (req, res) => {
 
 // Addd a new book
 router.post("/", async (req, res) => {
-  const bookId = { id, title, author, genre, yearPublished };
+  const { id, title, author, genre, yearPublished } = req.body;
   try {
     await pool.query(
       `INSERT INTO books (id, title, author, genre, yearPublished)
@@ -53,10 +53,12 @@ router.post("/", async (req, res) => {
 
 //Update a book
 router.put("/", async (req, res) => {
+  const { newName, oldName } = req.body;
   try {
-    await pool.query(
-      `UPDATE books SET author  = $1 WHERE author = $2', [newName, oldName]`
-    );
+    await pool.query(`UPDATE books SET author = $1 WHERE author = $2`, [
+      newName,
+      oldName,
+    ]);
     res.redirect("/books");
   } catch (error) {
     console.log("Error updating the book");

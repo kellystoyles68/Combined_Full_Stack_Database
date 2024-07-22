@@ -3,7 +3,7 @@ const pool = require("../db");
 //get all books
 async function getAllBooks() {
   try {
-    const result = await pool.query("SELECT * FROM books");
+    const result = await pool.query("select title,author,genre from books");
     return result.rows;
   } catch (error) {
     console.error("Error getting the books:", error);
