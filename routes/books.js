@@ -55,7 +55,7 @@ router.post("/", async (req, res) => {
 router.put("/", async (req, res) => {
   const { newName, oldName } = req.body;
   try {
-    await pool.query(`UPDATE books SET author = $1 WHERE author = $2`, [
+    await pool.query(`UPDATE books SET title = $1 WHERE title = $2`, [
       newName,
       oldName,
     ]);
@@ -68,7 +68,7 @@ router.put("/", async (req, res) => {
 
 //Delete a book
 router.delete("/id", async (req, res) => {
-  const { id } = req.params;
+  const { title } = req.params;
   try {
     const success = await deleteBook(id);
     if (success) {
