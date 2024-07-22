@@ -34,6 +34,18 @@ app.get("/", (req, res) => {
 app.get("/about", (req, res) => {
   res.render("about");
 });
+// Routes to get the forms
+app.get("/books/new", (req, res) => {
+  res.render("create");
+});
+
+app.get("/books/update", (req, res) => {
+  res.render("update");
+});
+
+app.get("/books/delete", (req, res) => {
+  res.render("delete");
+});
 
 //Route to get a list of books
 app.get("/books", async (req, res) => {
@@ -46,9 +58,6 @@ app.get("/books", async (req, res) => {
   }
 });
 
-app.get("/books/new", (req, res) => {
-  res.render("create");
-});
 // Route to handle the form submission for adding a new book
 app.post("/books", async (req, res) => {
   try {

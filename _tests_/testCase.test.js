@@ -44,7 +44,7 @@ describe("GET /books", () => {
 test("should update a book field", async () => {
   const field = "title";
   const newValue = "Updated Title";
-  const title = Book 1;
+  const title = Book1;
 
   const pool = new Pool();
   pool.query.mockResolvedValue({ rowCount: 1 });
@@ -67,9 +67,10 @@ describe("DELETE /books/:title", () => {
     const res = await request(app).delete("/books/Book 1");
 
     expect(res.statusCode).toEqual(200);
-    expect(pool.query).toHaveBeenCalledWith("DELETE FROM books WHERE title = $1", [
-      1,
-    ]);
+    expect(pool.query).toHaveBeenCalledWith(
+      "DELETE FROM books WHERE title = $1",
+      [1]
+    );
   });
 });
 

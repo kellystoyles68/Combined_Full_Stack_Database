@@ -18,12 +18,8 @@
       <% }) %>
     </ul>
     <button onclick="window.location.href='/books/new'">Add New Book</button>
-
-    <button onclick="window.location.href='/books/Update' ">Update Book</button>
-
-    <button onclick="window.location.href='/books/delete/<%= books.title %>'">
-      Delete Book
-    </button>
+    <button onclick="window.location.href='/books/update'">Update Book</button>
+    <button onclick="window.location.href='/books/delete'">Delete Book</button>
 
     <%- include('partials/footer') %>
   </body>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Delete Book</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <%- include('partials/nav') %>
+    <main>
+      <h1>Delete Book</h1>
+      <form action="/books/<%= book.title %>?_method=DELETE" method="POST">
+        <label for="title">Title of the Book to Delete:</label>
+        <input type="text" name="title" id="title" required />
+        <button type="submit">Delete Book</button>
+      </form>
+    </main>
+    <%- include('partials/footer') %>
+  </body>
+</html>
