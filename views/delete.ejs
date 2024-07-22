@@ -9,11 +9,11 @@
   <body>
     <%- include('partials/nav') %>
     <main>
-      <h1>Delete Book</h1>
+      <h1>Delete A Book</h1>
       <form action="/books" ?_method="DELETE" method="POST">
         <label for="title">Title of the Book to Delete:</label>
         <input type="text" name="title" id="title" required />
-        <button type="submit">Delete A Book</button>
+        <button type="submit">Delete</button>
       </form>
     </main>
     <%- include('partials/footer') %>
