@@ -1,13 +1,16 @@
-//this is the initial aetup required for the full stack/database QAP
+//this is the initial setup required for the full stack/database QAP
 
 //initialize all our modules that were installed
 require("dotenv").config();
 const express = require("express");
 const methodOverride = require("method-override");
-const bodyParser = require("body-parser");
 const booksRouter = require("./routes/books");
 const { getAllBooks } = require("./services/sql/books.dal.js");
-
+const {
+  addBook,
+  updateBookField,
+  deleteBook,
+} = require("./services/sql/books.dal.js");
 //port configuration
 const PORT = 3000;
 
@@ -22,8 +25,6 @@ app.set("views", __dirname + "/views");
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static("public"));
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 app.use(methodOverride("_method"));
 
 //set up routes for the app
@@ -33,18 +34,6 @@ app.get("/", (req, res) => {
 
 app.get("/about", (req, res) => {
   res.render("about");
-});
-// Routes to get the forms
-app.get("/books/new", (req, res) => {
-  res.render("create");
-});
-
-app.get("/books/update", (req, res) => {
-  res.render("update");
-});
-
-app.get("/books/delete", (req, res) => {
-  res.render("delete");
 });
 
 //Route to get a list of books
@@ -56,6 +45,18 @@ app.get("/books", async (req, res) => {
     console.error("Error fetching books:", error);
     res.status(500).send("Internal Server Error");
   }
+});
+//Routes to get the forms
+app.get("/books/new", (req, res) => {
+  res.render("create");
+});
+
+app.get("/books/update", (req, res) => {
+  res.render("update");
+});
+
+app.get("/books/delete", (req, res) => {
+  res.render("delete");
 });
 
 // Route to handle the form submission for adding a new book
@@ -72,11 +73,14 @@ app.post("/books", async (req, res) => {
 // Route for  updating a book
 app.put("/books/:title", async (req, res) => {
   try {
-    const { field, newValue } = req.body;
-    await updateBookField(field, newValue, req.params.title);
-    res.redirect("/books");
+    const book = await getBookByTitle(req.params.title);
+    if (book) {
+      res.render("update", { book });
+    } else {
+      res.render("norecord");
+    }
   } catch (error) {
-    console.error("Error updating book:", error);
+    console.error("Error fetching book:", error);
     res.status(500).send("Internal Server Error");
   }
 });

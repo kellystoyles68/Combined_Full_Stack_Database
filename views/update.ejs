@@ -3,15 +3,15 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Update Book</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
     <%- include('partials/nav') %>
     <main>
       <h1>Update Book</h1>
-      <form action="/books/<%= book.title %>?_method=PUT" method="POST">
+      <form action="/books" ?_method="PUT" method="POST">
         <label for="field">Field to Update:</label>
-        <select name="field" title="field" required>
+        <select name="field" title="field">
           <option value="title">Title</option>
           <option value="author">Author</option>
           <option value="genre">Genre</option>
