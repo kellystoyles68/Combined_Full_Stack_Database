@@ -10,7 +10,7 @@
     <%- include('partials/nav') %>
     <main>
       <h1>Delete A Book</h1>
-      <form action="/books" method="POST">
+      <form action="/books/title" method="POST">
         <input type="hidden" name="_method" value="DELETE" />
         <label for="title">Title of the Book to Delete:</label>
         <input type="text" name="title" id="title" required />

@@ -5,12 +5,14 @@ require("dotenv").config();
 const express = require("express");
 const methodOverride = require("method-override");
 const booksRouter = require("./routes/books");
+
 const { getAllBooks } = require("./services/sql/books.dal.js");
 const {
   addBook,
   updateBookField,
   deleteBook,
 } = require("./services/sql/books.dal.js");
+
 //port configuration
 const PORT = 3000;
 
@@ -25,6 +27,7 @@ app.set("views", __dirname + "/views");
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static("public"));
+app.use(express.static(__dirname, "public"));
 app.use(methodOverride("_method"));
 
 //set up routes for the app
@@ -51,9 +54,7 @@ app.get("/books/new", (req, res) => {
   res.render("create");
 });
 
-app.get("/books/update", (req, res) => {
-  res.render("update");
-});
+app.get("/books/update", (req, res) => {});
 
 app.get("/books/delete", (req, res) => {
   res.render("delete");

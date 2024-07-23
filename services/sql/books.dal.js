@@ -7,7 +7,7 @@ async function getAllBooks() {
     return result.rows;
   } catch (error) {
     console.error("Error getting the books:", error);
-    throw error;
+    //throw error;
   }
 }
 
@@ -21,7 +21,7 @@ async function addBook(book) {
     );
   } catch (error) {
     console.error("Error adding book:", error);
-    throw error; // Re-throw the error to be handled by the calling function
+    // throw error;
   }
 }
 
@@ -31,8 +31,8 @@ async function updateBookField(field, newValue, title) {
   if (!allowedFields.includes(field)) {
     throw new Error("Invalid field name");
   }
-  const query = `UPDATE books SET ${field} = $1 WHERE title = $2`;
-  await pool.query(query, [newValue, title]);
+  //const query = `UPDATE books SET $1:name=  $2 WHERE title = $3`;
+  // await pool.query(query, [field, newValue, title]);
 }
 
 //delete a book
@@ -44,7 +44,7 @@ async function deleteBook(title) {
     return result.rowCount > 0;
   } catch (error) {
     console.error("Error deleting the book:", error);
-    throw error;
+    //throw error;
   }
 }
 
@@ -57,7 +57,7 @@ async function getBookByTitle(title) {
     return result.rows[0];
   } catch (error) {
     console.error("Error getting the book:", error);
-    throw error;
+    //throw error;
   }
 }
 

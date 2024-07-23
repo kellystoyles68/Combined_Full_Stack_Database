@@ -83,7 +83,7 @@ label {
 }
 
 button {
-  margin-top: 300px;
+  padding-top: 25%;
   color: #fff200;
   padding: 6px;
   border: 0;
@@ -103,6 +103,7 @@ ul.book-list {
   padding-right: 10px;
   margin: 0;
   text-align: center;
+  padding-bottom: 150px;
 }
 
 ul.book-list a {
