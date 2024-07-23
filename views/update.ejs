@@ -11,6 +11,7 @@
       <h1>Update Book</h1>
 
       <form action="/books/title" method="POST">
+        <input type="hidden" name="_method" value="PUT" />
         <label for="field">Field to Update:</label>
         <select name="field" title="field">
           <option value="title">Title</option>

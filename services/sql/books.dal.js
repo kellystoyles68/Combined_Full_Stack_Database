@@ -31,8 +31,8 @@ async function updateBookField(field, newValue, title) {
   if (!allowedFields.includes(field)) {
     throw new Error("Invalid field name");
   }
-  //const query = `UPDATE books SET $1:name=  $2 WHERE title = $3`;
-  // await pool.query(query, [field, newValue, title]);
+  const query = `UPDATE books SET ${field} = $1 WHERE title = $2`;
+  await pool.query(query, [newValue, title]);
 }
 
 //delete a book

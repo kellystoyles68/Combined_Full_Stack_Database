@@ -74,16 +74,26 @@ app.post("/books", async (req, res) => {
 });
 
 // Route for  updating a book
+//app.put("/books/title", async (req, res) => {
+//  try {
+//    const book = await getBookByTitle(req.body.title);
+//    if (book) {
+//      res.render("update", { book });
+//    } else {
+//     res.render("norecord");
+////    }
+//  } catch (error) {
+//   console.error("Error fetching book:", error);
+//   res.status(500).send("Internal Server Error");
+// }
+//});
 app.put("/books/title", async (req, res) => {
   try {
-    const book = await getBookByTitle(req.params.title);
-    if (book) {
-      res.render("update", { book });
-    } else {
-      res.render("norecord");
-    }
+    const { field, newValue, title } = req.body;
+    await updateBookField(field, newValue, title);
+    res.redirect("/books");
   } catch (error) {
-    console.error("Error fetching book:", error);
+    console.error("Error updating book:", error);
     res.status(500).send("Internal Server Error");
   }
 });
