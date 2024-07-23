@@ -68,17 +68,16 @@ router.put("/", async (req, res) => {
 
 //Delete a book
 //router.delete("title", async (req, res) => {
-  const { title } = req.params;
-  try {
-    const success = await deleteBook(title);
-    if (success) {
-      res.status(200).send({ message: " Book was deleted." });
-    } else {
-      res.status(404).send({ message: "Book not found" });
-    }
-  } catch (error) {
-    res.status(500).send({ message: "Internal Server Error" });
+const { title } = req.params;
+try {
+  const success = await deleteBook(title);
+  if (success) {
+    res.status(200).send({ message: " Book was deleted." });
+  } else {
+    res.status(404).send({ message: "Book not found" });
   }
-});
+} catch (error) {
+  res.status(500).send({ message: "Internal Server Error" });
+}
 
 module.exports = router;
