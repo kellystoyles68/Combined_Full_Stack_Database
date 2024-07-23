@@ -54,7 +54,9 @@ app.get("/books/new", (req, res) => {
   res.render("create");
 });
 
-app.get("/books/update", (req, res) => {});
+app.get("/books/update", (req, res) => {
+  res.render("update");
+});
 
 app.get("/books/delete", (req, res) => {
   res.render("delete");
