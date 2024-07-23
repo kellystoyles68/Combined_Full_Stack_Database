@@ -52,7 +52,7 @@ test("should update a book field", async () => {
   await updateBookField(field, newValue, title);
 
   expect(pool.query).toHaveBeenCalledWith(
-    `UPDATE books SET ${field} = $1 WHERE id = $2`,
+    `UPDATE books SET ${field} = $1 WHERE title = $2`,
     [newValue, title]
   );
 });

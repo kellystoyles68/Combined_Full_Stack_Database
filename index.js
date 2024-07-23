@@ -21,14 +21,15 @@ const app = express();
 
 //set the views & layouts
 app.set("view engine", "ejs");
-app.set("views", __dirname + "/views");
+//app.set("views", __dirname + "/views");
 
 //set up middleware
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(express.static("public"));
-app.use(express.static(__dirname, "public"));
+//app.use(express.static(__dirname, "public"));
 app.use(methodOverride("_method"));
+app.use("/books", booksRouter);
 
 //set up routes for the app
 app.get("/", (req, res) => {
@@ -101,7 +102,7 @@ app.put("/books/title", async (req, res) => {
 // Route for deleting a book
 app.delete("/books/title", async (req, res) => {
   try {
-    await deleteBook(req.params.title);
+    await deleteBook(req.body.title);
     res.redirect("/books");
   } catch (error) {
     console.error("Error deleting book:", error);
